@@ -1,0 +1,1 @@
+ReactDOMRe.renderToElementWithId(<Greeting name="An Hello" />, "app");

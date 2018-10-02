@@ -1,0 +1,29 @@
+{
+  "name": "rere",
+  "version": "0.1.0",
+  "scripts": {
+    "build:reason": "bsb -make-world",
+    "build:webpack": "NODE_ENV=production webpack",
+    "build": "concurrently 'yarn build:reason' 'yarn build:webpack'",
+    "clean": "bsb -clean-world",
+    "start": "concurrently 'yarn start:reason' 'yarn start:webpack'",
+    "start:reason": "bsb -make-world -w",
+    "start:webpack": "webpack -w"
+  },
+  "keywords": [
+    "BuckleScript"
+  ],
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "react": "^16.2.0",
+    "react-dom": "^16.2.0",
+    "reason-react": "^0.5.3"
+  },
+  "devDependencies": {
+    "bs-platform": "^4.0.5",
+    "concurrently": "^4.0.1",
+    "webpack": "^4.20.2",
+    "webpack-cli": "^3.1.2"
+  }
+}
