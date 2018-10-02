@@ -1,0 +1,6 @@
+{
+  "emmet.includeLanguages": {
+    "reason": "javascriptreact"
+  },
+  "emmet.triggerExpansionOnTab": true
+}
