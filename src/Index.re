@@ -1,1 +1,3 @@
-ReactDOMRe.renderToElementWithId(<Greeting name="An Hello" />, "app");
+ReactDOMRe.renderToElementWithId(<Greeting name="An" />, "app");
+
+ReactDOMRe.renderToElementWithId(<Counter />, "counter");

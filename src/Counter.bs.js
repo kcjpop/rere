@@ -6,9 +6,13 @@ var Curry = require("bs-platform/lib/js/curry.js");
 var React = require("react");
 var ReasonReact = require("reason-react/src/ReasonReact.js");
 
-var component = ReasonReact.reducerComponent("Example");
+var component = ReasonReact.reducerComponent("Counter");
 
-function make(greeting, _) {
+function send$prime(self, action, _) {
+  return Curry._1(self[/* send */3], action);
+}
+
+function make() {
   return /* record */[
           /* debugName */component[/* debugName */0],
           /* reactClassInternal */component[/* reactClassInternal */1],
@@ -20,17 +24,16 @@ function make(greeting, _) {
           /* willUpdate */component[/* willUpdate */7],
           /* shouldUpdate */component[/* shouldUpdate */8],
           /* render */(function (self) {
-              var message = "You've clicked this " + (String(self[/* state */1][/* count */0]) + " times(s)");
-              var match = self[/* state */1][/* show */1];
-              return React.createElement("div", undefined, React.createElement("button", {
-                              onClick: (function () {
-                                  return Curry._1(self[/* send */3], /* Click */0);
-                                })
-                            }, message), React.createElement("button", {
+              var message = "Clicks: " + String(self[/* state */1][/* count */0]);
+              return React.createElement("div", undefined, self[/* state */1][/* show */1] ? React.createElement("button", {
+                                onClick: (function () {
+                                    return Curry._1(self[/* send */3], /* Click */0);
+                                  })
+                              }, message) : null, React.createElement("button", {
                               onClick: (function () {
                                   return Curry._1(self[/* send */3], /* Toggle */1);
                                 })
-                            }, "Toggle greeting"), match ? greeting : null);
+                            }, "Toggle"));
             }),
           /* initialState */(function () {
               return /* record */[
@@ -57,5 +60,6 @@ function make(greeting, _) {
 }
 
 exports.component = component;
+exports.send$prime = send$prime;
 exports.make = make;
 /* component Not a pure module */
