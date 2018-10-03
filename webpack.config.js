@@ -6,7 +6,8 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const isProd = process.env.NODE_ENV === 'production';
 
 const devServer = {
-  contentBase: outputDir
+  contentBase: outputDir,
+  historyApiFallback: true
 };
 
 module.exports = {
