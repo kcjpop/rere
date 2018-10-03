@@ -1,7 +1,13 @@
 const path = require('path');
-const outputDir = path.join(__dirname, "build/");
+const outputDir = path.join(__dirname, 'build/');
+
+const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 const isProd = process.env.NODE_ENV === 'production';
+
+const devServer = {
+  contentBase: outputDir
+};
 
 module.exports = {
   entry: './src/Index.bs.js',
@@ -9,6 +15,12 @@ module.exports = {
   output: {
     path: outputDir,
     publicPath: outputDir,
-    filename: 'Index.js',
+    filename: 'Index.js'
   },
+  devServer: !isProd ? devServer : undefined,
+  plugins: [
+    new HtmlWebpackPlugin({
+      template: path.resolve(__dirname, 'src/index.html')
+    })
+  ]
 };
