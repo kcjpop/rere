@@ -11,6 +11,8 @@ type action =
 
 let component = ReasonReact.reducerComponent("Counter");
 
+let conc = (x, y) => x ++ y;
+
 let send' = (self, action, _e) => self.ReasonReact.send(action);
 
 let make = _children => {
@@ -22,20 +24,26 @@ let make = _children => {
     | Toggle => ReasonReact.Update({...state, show: !state.show})
     },
   render: self => {
-    let message = "Clicks: " ++ string_of_int(self.state.count);
+    let message =
+      string_of_int(self.state.count)
+      |> conc("click: ")
+      |> conc("Howdy good person, you ");
+
     <div>
       {
         if (self.state.show) {
-          <button onClick={send'(self, Click)}>
+          <Button onClick={send'(self, Click)}>
             {ReasonReact.string(message)}
-          </button>;
+          </Button>;
         } else {
           ReasonReact.null;
         }
       }
-      <button onClick={send'(self, Toggle)}>
+      <br />
+      <br />
+      <Button onClick={send'(self, Toggle)}>
         {ReasonReact.string("Toggle")}
-      </button>
+      </Button>
     </div>;
   },
 };

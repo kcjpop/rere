@@ -5,8 +5,13 @@ var Block = require("bs-platform/lib/js/block.js");
 var Curry = require("bs-platform/lib/js/curry.js");
 var React = require("react");
 var ReasonReact = require("reason-react/src/ReasonReact.js");
+var Button$ReactTemplate = require("./Button.bs.js");
 
 var component = ReasonReact.reducerComponent("Counter");
+
+function conc(x, y) {
+  return x + y;
+}
 
 function send$prime(self, action, _) {
   return Curry._1(self[/* send */3], action);
@@ -24,16 +29,12 @@ function make() {
           /* willUpdate */component[/* willUpdate */7],
           /* shouldUpdate */component[/* shouldUpdate */8],
           /* render */(function (self) {
-              var message = "Clicks: " + String(self[/* state */1][/* count */0]);
-              return React.createElement("div", undefined, self[/* state */1][/* show */1] ? React.createElement("button", {
-                                onClick: (function () {
-                                    return Curry._1(self[/* send */3], /* Click */0);
-                                  })
-                              }, message) : null, React.createElement("button", {
-                              onClick: (function () {
-                                  return Curry._1(self[/* send */3], /* Toggle */1);
-                                })
-                            }, "Toggle"));
+              var message = "Howdy good person, you click: " + String(self[/* state */1][/* count */0]);
+              return React.createElement("div", undefined, self[/* state */1][/* show */1] ? ReasonReact.element(undefined, undefined, Button$ReactTemplate.make((function () {
+                                      return Curry._1(self[/* send */3], /* Click */0);
+                                    }), /* array */[message])) : null, React.createElement("br", undefined), React.createElement("br", undefined), ReasonReact.element(undefined, undefined, Button$ReactTemplate.make((function () {
+                                    return Curry._1(self[/* send */3], /* Toggle */1);
+                                  }), /* array */["Toggle"])));
             }),
           /* initialState */(function () {
               return /* record */[
@@ -60,6 +61,7 @@ function make() {
 }
 
 exports.component = component;
+exports.conc = conc;
 exports.send$prime = send$prime;
 exports.make = make;
 /* component Not a pure module */
