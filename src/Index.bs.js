@@ -3,11 +3,8 @@
 
 var ReactDOMRe = require("reason-react/src/ReactDOMRe.js");
 var ReasonReact = require("reason-react/src/ReasonReact.js");
-var Counter$ReactTemplate = require("./Counter.bs.js");
-var Greeting$ReactTemplate = require("./Greeting.bs.js");
+var SimpleRouter$ReactTemplate = require("./SimpleRouter.bs.js");
 
-ReactDOMRe.renderToElementWithId(ReasonReact.element(undefined, undefined, Greeting$ReactTemplate.make("An", /* array */[])), "app");
-
-ReactDOMRe.renderToElementWithId(ReasonReact.element(undefined, undefined, Counter$ReactTemplate.make(/* array */[])), "counter");
+ReactDOMRe.renderToElementWithId(ReasonReact.element(undefined, undefined, SimpleRouter$ReactTemplate.make(/* array */[])), "app");
 
 /*  Not a pure module */
