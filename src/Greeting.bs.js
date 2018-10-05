@@ -18,9 +18,7 @@ function make(name, _) {
           /* willUpdate */component[/* willUpdate */7],
           /* shouldUpdate */component[/* shouldUpdate */8],
           /* render */(function () {
-              return React.createElement("div", undefined, React.createElement("h1", undefined, "Hello World"), React.createElement("div", {
-                              className: "foo"
-                            }, String(123)), React.createElement("button", undefined, "Hello" + name));
+              return React.createElement("h1", undefined, "Hello " + name);
             }),
           /* initialState */component[/* initialState */10],
           /* retainedProps */component[/* retainedProps */11],
