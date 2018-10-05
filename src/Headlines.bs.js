@@ -20,8 +20,7 @@ function make() {
           /* didMount */(function (self) {
               Curry._1(self[/* send */3], /* Loading */0);
               NewsData$ReactTemplate.fetchTopHeadlines("us").then((function (res) {
-                      Curry._1(self[/* send */3], /* Loaded */[res[/* articles */2]]);
-                      return Promise.resolve(/* () */0);
+                      return Promise.resolve(Curry._1(self[/* send */3], /* Loaded */[res[/* articles */2]]));
                     }));
               return /* () */0;
             }),

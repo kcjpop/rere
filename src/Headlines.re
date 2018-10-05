@@ -21,10 +21,9 @@ let make = _children => {
     self.send(Loading);
     Js.Promise.(
       NewsData.fetchTopHeadlines(~country="us")
-      |> then_((res: NewsData.response) => {
-           self.send(res.articles->Loaded);
-           resolve();
-         })
+      |> then_((res: NewsData.response) =>
+           self.send(Loaded(res.articles)) |> resolve
+         )
       |> ignore
     );
   },
