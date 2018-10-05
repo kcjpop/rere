@@ -5,7 +5,8 @@ var Block = require("bs-platform/lib/js/block.js");
 var Curry = require("bs-platform/lib/js/curry.js");
 var React = require("react");
 var ReasonReact = require("reason-react/src/ReasonReact.js");
-var Button$ReactTemplate = require("./Button.bs.js");
+var Link$ReactTemplate = require("./Link.bs.js");
+var Counter$ReactTemplate = require("./Counter.bs.js");
 var Greeting$ReactTemplate = require("./Greeting.bs.js");
 
 var component = ReasonReact.reducerComponent("SimpleRouter");
@@ -17,7 +18,11 @@ function reducer(action, _) {
 function mapUrlToRoute(url) {
   var match = url[/* path */0];
   if (match) {
-    return /* NotFound */1;
+    if (match[0] === "counter" && !match[1]) {
+      return /* Counter */1;
+    } else {
+      return /* NotFound */2;
+    }
   } else {
     return /* Home */0;
   }
@@ -31,12 +36,7 @@ function make() {
           /* willReceiveProps */component[/* willReceiveProps */3],
           /* didMount */(function (self) {
               var watcherId = ReasonReact.Router[/* watchUrl */1]((function (url) {
-                      var match = url[/* path */0];
-                      if (match && match[0] === "/" && !match[1]) {
-                        return Curry._1(self[/* send */3], /* ChangeRoute */[/* Home */0]);
-                      } else {
-                        return Curry._1(self[/* send */3], /* ChangeRoute */[/* NotFound */1]);
-                      }
+                      return Curry._1(self[/* send */3], /* ChangeRoute */[mapUrlToRoute(url)]);
                     }));
               return Curry._1(self[/* onUnmount */4], (function () {
                             return ReasonReact.Router[/* unwatchUrl */2](watcherId);
@@ -48,13 +48,32 @@ function make() {
           /* shouldUpdate */component[/* shouldUpdate */8],
           /* render */(function (self) {
               var match = self[/* state */1][/* route */0];
-              if (match) {
-                return React.createElement("h1", undefined, "Not Found");
-              } else {
-                return React.createElement("div", undefined, ReasonReact.element(undefined, undefined, Greeting$ReactTemplate.make("An", /* array */[])), ReasonReact.element(undefined, undefined, Button$ReactTemplate.make((function () {
-                                      return ReasonReact.Router[/* push */0]("/whatever");
-                                    }), /* array */["Change"])));
+              var tmp;
+              switch (match) {
+                case 0 : 
+                    tmp = ReasonReact.element(undefined, undefined, Greeting$ReactTemplate.make("An", /* array */[]));
+                    break;
+                case 1 : 
+                    tmp = ReasonReact.element(undefined, undefined, Counter$ReactTemplate.make(/* array */[]));
+                    break;
+                case 2 : 
+                    tmp = React.createElement("h1", undefined, "Not Found");
+                    break;
+                
               }
+              return React.createElement("div", {
+                          className: "m-3"
+                        }, React.createElement("ul", {
+                              className: "list-reset flex"
+                            }, React.createElement("li", {
+                                  className: "mr-6"
+                                }, ReasonReact.element(undefined, undefined, Link$ReactTemplate.make("text-blue hover:text-blue-darker", "/", /* array */["Home"]))), React.createElement("li", {
+                                  className: "mr-6"
+                                }, ReasonReact.element(undefined, undefined, Link$ReactTemplate.make("text-blue hover:text-blue-darker", "/counter", /* array */["Counter"]))), React.createElement("li", {
+                                  className: "mr-6"
+                                }, ReasonReact.element(undefined, undefined, Link$ReactTemplate.make("text-blue hover:text-blue-darker", "/404", /* array */["Not Found"])))), React.createElement("main", {
+                              className: "mt-5"
+                            }, tmp));
             }),
           /* initialState */(function () {
               return /* record */[/* route : Home */0];
