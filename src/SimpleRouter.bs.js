@@ -8,6 +8,7 @@ var ReasonReact = require("reason-react/src/ReasonReact.js");
 var Link$ReactTemplate = require("./Link.bs.js");
 var Counter$ReactTemplate = require("./Counter.bs.js");
 var Greeting$ReactTemplate = require("./Greeting.bs.js");
+var Headlines$ReactTemplate = require("./Headlines.bs.js");
 
 var component = ReasonReact.reducerComponent("SimpleRouter");
 
@@ -18,10 +19,21 @@ function reducer(action, _) {
 function mapUrlToRoute(url) {
   var match = url[/* path */0];
   if (match) {
-    if (match[0] === "counter" && !match[1]) {
-      return /* Counter */1;
-    } else {
-      return /* NotFound */2;
+    switch (match[0]) {
+      case "counter" : 
+          if (match[1]) {
+            return /* NotFound */3;
+          } else {
+            return /* Counter */1;
+          }
+      case "headlines" : 
+          if (match[1]) {
+            return /* NotFound */3;
+          } else {
+            return /* Headlines */2;
+          }
+      default:
+        return /* NotFound */3;
     }
   } else {
     return /* Home */0;
@@ -57,6 +69,9 @@ function make() {
                     tmp = ReasonReact.element(undefined, undefined, Counter$ReactTemplate.make(/* array */[]));
                     break;
                 case 2 : 
+                    tmp = ReasonReact.element(undefined, undefined, Headlines$ReactTemplate.make(/* array */[]));
+                    break;
+                case 3 : 
                     tmp = React.createElement("h1", undefined, "Not Found");
                     break;
                 
@@ -68,6 +83,8 @@ function make() {
                             }, React.createElement("li", {
                                   className: "mr-6"
                                 }, ReasonReact.element(undefined, undefined, Link$ReactTemplate.make("text-blue hover:text-blue-darker", "/", /* array */["Home"]))), React.createElement("li", {
+                                  className: "mr-6"
+                                }, ReasonReact.element(undefined, undefined, Link$ReactTemplate.make("text-blue hover:text-blue-darker", "/headlines", /* array */["Headlines"]))), React.createElement("li", {
                                   className: "mr-6"
                                 }, ReasonReact.element(undefined, undefined, Link$ReactTemplate.make("text-blue hover:text-blue-darker", "/counter", /* array */["Counter"]))), React.createElement("li", {
                                   className: "mr-6"

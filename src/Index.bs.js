@@ -3,13 +3,10 @@
 
 var ReactDOMRe = require("reason-react/src/ReactDOMRe.js");
 var ReasonReact = require("reason-react/src/ReasonReact.js");
-var NewsData$ReactTemplate = require("./NewsData.bs.js");
 var SimpleRouter$ReactTemplate = require("./SimpleRouter.bs.js");
 
 ReactDOMRe.renderToElementWithId(ReasonReact.element(undefined, undefined, SimpleRouter$ReactTemplate.make(/* array */[])), "app");
 
 ReasonReact.Router[/* push */0]("");
-
-console.log(NewsData$ReactTemplate.s);
 
 /*  Not a pure module */

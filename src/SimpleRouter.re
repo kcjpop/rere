@@ -1,6 +1,7 @@
 type route =
   | Home
   | Counter
+  | Headlines
   | NotFound;
 
 type state = {route};
@@ -19,6 +20,7 @@ let mapUrlToRoute = (url: ReasonReact.Router.url) =>
   switch (url.path) {
   | [] => Home
   | ["counter"] => Counter
+  | ["headlines"] => Headlines
   | _ => NotFound
   };
 
@@ -43,6 +45,11 @@ let make = _children => {
           </Link>
         </li>
         <li className="mr-6">
+          <Link className="text-blue hover:text-blue-darker" href="/headlines">
+            {ReasonReact.string("Headlines")}
+          </Link>
+        </li>
+        <li className="mr-6">
           <Link className="text-blue hover:text-blue-darker" href="/counter">
             {ReasonReact.string("Counter")}
           </Link>
@@ -58,6 +65,7 @@ let make = _children => {
           switch (self.state.route) {
           | Home => <Greeting name="An" />
           | Counter => <Counter />
+          | Headlines => <Headlines />
           | NotFound => <h1> {ReasonReact.string("Not Found")} </h1>
           }
         }
