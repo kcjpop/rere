@@ -1,6 +1,4 @@
-let component = ReasonReact.statelessComponent("CountryDropdown");
-
-let countries = [|
+let list = [|
   "ae",
   "ar",
   "at",
@@ -56,19 +54,3 @@ let countries = [|
   "ve",
   "za",
 |];
-
-let make = (~onChange, _children) => {
-  ...component,
-  render: _self =>
-    <select onChange>
-      {
-        countries
-        |> Array.map(country =>
-             <option key=country value=country>
-               {ReasonReact.string(country)}
-             </option>
-           )
-        |> ReasonReact.array
-      }
-    </select>,
-};

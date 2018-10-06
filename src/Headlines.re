@@ -22,12 +22,16 @@ let fetchTopHeadlines = self => {
   );
 };
 
-let doChangeCountry = (e, self) =>
-  self.ReasonReact.send(ChangeCountry(e->ReactEvent.Form.target##value));
+let doChangeCountry = (country, self) =>
+  self.ReasonReact.send(ChangeCountry(country));
 
 let make = _children => {
   ...component,
-  initialState: () => {articles: [||], loading: true, country: "us"},
+  initialState: () => {
+    articles: [||],
+    loading: true,
+    country: Countries.list[0],
+  },
   reducer: (action, state) =>
     switch (action) {
     | ChangeCountry(country) =>
@@ -44,7 +48,13 @@ let make = _children => {
     <div className="px-2 max-w-2xl mx-auto">
       <div className="flex items-center justify-between">
         <h1> {ReasonReact.string("Headline")} </h1>
-        <CountryDropdown onChange={self.handle(doChangeCountry)} />
+        <div className="flex items-center">
+          {ReasonReact.string("Change country:")}
+          <Dropdown
+            onChange={self.handle(doChangeCountry)}
+            items=Countries.list
+          />
+        </div>
       </div>
       <div className="flex flex-wrap">
         {
