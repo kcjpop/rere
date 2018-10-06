@@ -8,8 +8,21 @@ var React = require("react");
 var ReasonReact = require("reason-react/src/ReasonReact.js");
 var Article$ReactTemplate = require("./Article.bs.js");
 var NewsData$ReactTemplate = require("./NewsData.bs.js");
+var CountryDropdown$ReactTemplate = require("./CountryDropdown.bs.js");
 
 var component = ReasonReact.reducerComponent("Headlines");
+
+function fetchTopHeadlines(self) {
+  Curry._1(self[/* send */3], /* Loading */0);
+  NewsData$ReactTemplate.fetchTopHeadlines(self[/* state */1][/* country */1]).then((function (res) {
+          return Promise.resolve(Curry._1(self[/* send */3], /* Loaded */Block.__(0, [res[/* articles */2]])));
+        }));
+  return /* () */0;
+}
+
+function doChangeCountry(e, self) {
+  return Curry._1(self[/* send */3], /* ChangeCountry */Block.__(1, [e.target.value]));
+}
 
 function make() {
   return /* record */[
@@ -17,13 +30,7 @@ function make() {
           /* reactClassInternal */component[/* reactClassInternal */1],
           /* handedOffState */component[/* handedOffState */2],
           /* willReceiveProps */component[/* willReceiveProps */3],
-          /* didMount */(function (self) {
-              Curry._1(self[/* send */3], /* Loading */0);
-              NewsData$ReactTemplate.fetchTopHeadlines("us").then((function (res) {
-                      return Promise.resolve(Curry._1(self[/* send */3], /* Loaded */[res[/* articles */2]]));
-                    }));
-              return /* () */0;
-            }),
+          /* didMount */fetchTopHeadlines,
           /* didUpdate */component[/* didUpdate */5],
           /* willUnmount */component[/* willUnmount */6],
           /* willUpdate */component[/* willUpdate */7],
@@ -31,7 +38,9 @@ function make() {
           /* render */(function (self) {
               return React.createElement("div", {
                           className: "px-2 max-w-2xl mx-auto"
-                        }, React.createElement("h1", undefined, "Headline"), React.createElement("div", {
+                        }, React.createElement("div", {
+                              className: "flex items-center justify-between"
+                            }, React.createElement("h1", undefined, "Headline"), ReasonReact.element(undefined, undefined, CountryDropdown$ReactTemplate.make(Curry._1(self[/* handle */0], doChangeCountry), /* array */[]))), React.createElement("div", {
                               className: "flex flex-wrap"
                             }, self[/* state */1][/* articles */0].length !== 0 ? $$Array.map((function (article) {
                                       return ReasonReact.element(article[/* url */4], undefined, Article$ReactTemplate.make(article, /* array */[]));
@@ -40,20 +49,32 @@ function make() {
           /* initialState */(function () {
               return /* record */[
                       /* articles : array */[],
+                      /* country */"us",
                       /* loading */true
                     ];
             }),
           /* retainedProps */component[/* retainedProps */11],
           /* reducer */(function (action, state) {
-              if (action) {
-                return /* Update */Block.__(0, [/* record */[
-                            /* articles */action[0],
-                            /* loading */false
-                          ]]);
-              } else {
+              if (typeof action === "number") {
                 return /* Update */Block.__(0, [/* record */[
                             /* articles */state[/* articles */0],
+                            /* country */state[/* country */1],
                             /* loading */true
+                          ]]);
+              } else if (action.tag) {
+                return /* UpdateWithSideEffects */Block.__(2, [
+                          /* record */[
+                            /* articles */state[/* articles */0],
+                            /* country */action[0],
+                            /* loading */state[/* loading */2]
+                          ],
+                          fetchTopHeadlines
+                        ]);
+              } else {
+                return /* Update */Block.__(0, [/* record */[
+                            /* articles */action[0],
+                            /* country */state[/* country */1],
+                            /* loading */false
                           ]]);
               }
             }),
@@ -62,5 +83,7 @@ function make() {
 }
 
 exports.component = component;
+exports.fetchTopHeadlines = fetchTopHeadlines;
+exports.doChangeCountry = doChangeCountry;
 exports.make = make;
 /* component Not a pure module */
